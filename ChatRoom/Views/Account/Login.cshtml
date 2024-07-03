@@ -1,0 +1,51 @@
+﻿@using ChatRoom.Models
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<style>
+    body {
+        background-image: url('../images/login.png');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+@{
+    bool errorCreateRoom = TempData["ErrorCreateRoom"] != null && (bool)TempData["ErrorCreateRoom"];
+}
+
+@if (errorCreateRoom)
+{
+    <div class="alert alert-danger">
+        <p>@TempData["ErrorMessage"]</p>
+    </div>
+}
+
+        <div class="row justify-content-start mt-5">
+            <div class="col-md-6">
+               <h1 class="mt-5">Iniciar sesión</h1>
+                <div class="login-form">
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="All"></div>
+
+                        <div class="form-group">
+                            <label asp-for="UserName">Nombre de usuario</label>
+                    <input asp-for="UserName" class="form-control" required />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password">Contraseña</label>
+                    <input asp-for="Password" type="password" class="form-control" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2">Ingresar</button>
+                    </form>
+                    <a asp-action="Register" class="btn btn-link">Registrarse</a>
+                </div>
+            </div>
+        </div>
